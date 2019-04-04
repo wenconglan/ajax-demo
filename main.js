@@ -35,20 +35,21 @@ window.jQuery.ajax = function({url,method,body,success,fail,headers}){
     }
   }
   request.send(body)
+
 }*/
-function success(responseText) {
+/*function success(responseText) {
   console.log(responseText)
 }
 function fail(request) {
   console.log(request)
   console.log(request.status)
   console.log(request.responseText)
-}
+}*/
 
 button.addEventListener('click', e => {
   window.jQuery.ajax
     .call(undefined, {
-      url: '/xxy',
+      url: '/xxx',
       method: 'post',
       data: 'name=logan&&password=112233',
       headers: {
