@@ -16,9 +16,13 @@ window.jQuery = function(nodeOrSelector) {
   }
   return nodes
   }
-window.jQuery.ajax = function(url,method,body,success,fail){
+window.jQuery.ajax = function({url,method,body,success,fail,headers}){
   let request = new XMLHttpRequest()
   request.open(method, url)
+  for(let key in headers){
+    let value = headers[key]
+    request.setRequestHeader(key,value)
+  }
   request.onreadystatechange = () => {
     if (request.readyState === 4) {
       if (request.status >= 200 && request.status < 300) {
@@ -33,5 +37,15 @@ window.jQuery.ajax = function(url,method,body,success,fail){
 
 //下面的代码为封装的AJAX函数的调用
 button.addEventListener('click', e => {
-  window.jQuery.ajax.call(undefined,'/xxx','post','name=logan&&password=112233',(yyy)=>{console.log(yyy)},(xxx)=>{console.log(xxx)})
+  window.jQuery.ajax.call(undefined,{
+    url:'/xxx',
+    method:'post',
+    body:'name=logan&&password=112233',
+    headers:{
+      'content-type':'application/x-www-form-urlenconded',
+      'frank':'18'
+    },
+    success:(yyy)=>{console.log(yyy)},
+    fail:(xxx)=>{console.log(xxx)}
+  })
 })
