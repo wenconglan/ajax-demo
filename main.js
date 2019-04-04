@@ -1,3 +1,5 @@
+/*
+//下面的代码为封装的AJAX函数
 window.$ = window.jQuery
 window.jQuery = function(nodeOrSelector) {
   let nodes = {
@@ -33,19 +35,35 @@ window.jQuery.ajax = function({url,method,body,success,fail,headers}){
     }
   }
   request.send(body)
+}*/
+function success(responseText) {
+  console.log(responseText)
+}
+function fail(request) {
+  console.log(request)
+  console.log(request.status)
+  console.log(request.responseText)
 }
 
-//下面的代码为封装的AJAX函数的调用
 button.addEventListener('click', e => {
-  window.jQuery.ajax.call(undefined,{
-    url:'/xxx',
-    method:'post',
-    body:'name=logan&&password=112233',
-    headers:{
-      'content-type':'application/x-www-form-urlenconded',
-      'frank':'18'
-    },
-    success:(yyy)=>{console.log(yyy)},
-    fail:(xxx)=>{console.log(xxx)}
-  })
+  window.jQuery.ajax
+    .call(undefined, {
+      url: '/xxy',
+      method: 'post',
+      data: 'name=logan&&password=112233',
+      headers: {
+        'content-type': 'application/x-www-form-urlenconded',
+        frank: '18'
+      }
+    })
+    .then(
+      responseText => {
+        console.log(responseText)
+      },
+      request => {
+        console.log(request)
+        console.log(request.status)
+        console.log(request.responseText)
+      }
+    )
 })
