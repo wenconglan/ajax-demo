@@ -1,4 +1,4 @@
-/*
+
 //下面的代码为封装的AJAX函数
 window.$ = window.jQuery
 window.jQuery = function(nodeOrSelector) {
@@ -18,8 +18,9 @@ window.jQuery = function(nodeOrSelector) {
   }
   return nodes
   }
-window.jQuery.ajax = function({url,method,body,success,fail,headers}){
-  let request = new XMLHttpRequest()
+window.jQuery.ajax = function({url,method,body,headers}){
+  return new Promise (function(resolve,reject){
+    let request = new XMLHttpRequest()
   request.open(method, url)
   for(let key in headers){
     let value = headers[key]
@@ -28,27 +29,18 @@ window.jQuery.ajax = function({url,method,body,success,fail,headers}){
   request.onreadystatechange = () => {
     if (request.readyState === 4) {
       if (request.status >= 200 && request.status < 300) {
-        success.call(undefined,request.responseText)
+        resolve.call(undefined,request.responseText)
       } else if (request.status >= 400) {
-        fail.call(undefined,request)
+        reject.call(undefined,request)
       }
     }
   }
   request.send(body)
-
-}*/
-/*function success(responseText) {
-  console.log(responseText)
+  })
 }
-function fail(request) {
-  console.log(request)
-  console.log(request.status)
-  console.log(request.responseText)
-}*/
 
 button.addEventListener('click', e => {
-  window.jQuery.ajax
-    .call(undefined, {
+  window.jQuery.ajax.call(undefined, {
       url: '/xxx',
       method: 'post',
       data: 'name=logan&&password=112233',
@@ -56,15 +48,14 @@ button.addEventListener('click', e => {
         'content-type': 'application/x-www-form-urlenconded',
         frank: '18'
       }
-    })
-    .then(
-      responseText => {
-        console.log(responseText)
+    }).then(
+      xxx => {
+        console.log(xxx)
       },
-      request => {
-        console.log(request)
-        console.log(request.status)
-        console.log(request.responseText)
+      yyy => {
+        console.log(yyy)
+        console.log(yyy.status)
+        console.log(yyy.responseText)
       }
     )
 })
