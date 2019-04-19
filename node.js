@@ -30,9 +30,7 @@ var server = http.createServer(function(request, response) {
       let key = parts[0]
       hash[key] = parts[1]
     }
-    console.log(hash)
     let email = hash.sign_in_email
-    console.log(email)
     let users = fs.readFileSync('./db1/users', 'utf8')
     users = JSON.parse(users)
     let foundUser
